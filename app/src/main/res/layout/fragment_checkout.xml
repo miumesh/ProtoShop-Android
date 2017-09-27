@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/primary"
-            android:text="@string/no_customer_found"
+            android:text="@string/no_item_found"
             android:padding="@dimen/margin_padding_normal"
             android:gravity="center"
             android:textStyle="italic"
