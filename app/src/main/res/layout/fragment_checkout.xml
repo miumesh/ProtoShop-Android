@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="com.example.umesh.chintushop.ui.checkout.CheckoutFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -28,21 +28,24 @@
             android:textColor="@color/primary"
             android:text="@string/no_item_found"
             android:padding="@dimen/margin_padding_normal"
+            android:textSize="@dimen/text_size_huge"
             android:gravity="center"
             android:textStyle="italic"
             android:visibility="gone"
             android:fontFamily="sans-serif-condensed" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center" >
+        android:id="@+id/linear_layout_totals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center" >
+
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
@@ -52,21 +55,25 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_sub_total"
                     android:layout_gravity="center"
-                    android:gravity="start"/>
+                    android:gravity="end"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="bold"         />
 
                 <TextView
                     android:id="@+id/text_view_sub_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/label_zero_dollar"
-                    android:layout_gravity="center"
-                    android:gravity="right"
-                    android:paddingRight="5dp"/>
+                    android:layout_marginLeft="5dp"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="bold"
+                    android:paddingRight="5dp"
+                    android:gravity="right"     />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
@@ -75,8 +82,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/label_tax"
+                    android:textSize="@dimen/text_size_small"
+                    android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:gravity="start"/>
+                    android:gravity="end"/>
 
                 <TextView
                     android:id="@+id/text_view_tax"
@@ -84,13 +93,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_zero_dollar"
                     android:layout_gravity="center"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
                     android:gravity="right"
                     android:paddingRight="5dp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
@@ -100,7 +112,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_total"
                     android:layout_gravity="center"
-                    android:gravity="start"/>
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_small"
+                    android:gravity="end"/>
 
                 <TextView
                     android:id="@+id/text_view_total"
@@ -108,7 +122,10 @@
                     android:layout_height="wrap_content"
                     android:text="@string/label_zero_dollar"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
                     android:gravity="right"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_size_small"
                     android:paddingRight="5dp"/>
 
             </LinearLayout>
