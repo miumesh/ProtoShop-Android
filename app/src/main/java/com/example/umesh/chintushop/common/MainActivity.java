@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.umesh.chintushop.R;
+import com.example.umesh.chintushop.ui.customerlist.CustomerListFragment;
 import com.example.umesh.chintushop.ui.productlist.ProductListFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        openFragment(new ProductListFragment(), "Product List");
+        //openFragment(new ProductListFragment(), "Product List");
+        openFragment(new CustomerListFragment(), "Customer List");
 
 
     }
