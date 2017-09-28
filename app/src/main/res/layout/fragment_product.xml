@@ -20,6 +20,7 @@
         android:textColor="@color/primary"
         android:text="@string/no_product_found"
         android:padding="@dimen/margin_padding_normal"
+        android:textSize="@dimen/text_size_huge"
         android:gravity="center"
         android:textStyle="italic"
         android:visibility="gone"

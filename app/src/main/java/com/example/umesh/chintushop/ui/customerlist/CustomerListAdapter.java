@@ -108,7 +108,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         @Override
         public boolean onLongClick(View view) {
             Customer selectedCustomer = mCustomers.get(selectedPosition);
-            mListener .onLongClickCusomer(selectedCustomer);
+            mListener.onLongClickCustomer(selectedCustomer);
             return true;
         }
     }

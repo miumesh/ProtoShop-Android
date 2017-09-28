@@ -9,5 +9,7 @@ import com.example.umesh.chintushop.model.Customer;
 public interface OnCustomerSelectedListener {
 
     void onSelectCustomer(Customer customer);
-    void onLongClickCusomer(Customer customer);
+    void onLongClickCustomer(Customer customer);
+
+
 }

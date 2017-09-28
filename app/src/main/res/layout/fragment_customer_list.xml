@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/margin_padding_tiny"
     tools:context="com.example.umesh.chintushop.ui.customerlist.CustomerListFragment">
@@ -22,6 +23,7 @@
         android:padding="@dimen/margin_padding_normal"
         android:gravity="center"
         android:textStyle="italic"
+        android:textSize="@dimen/text_size_huge"
         android:visibility="gone"
         android:fontFamily="sans-serif-condensed" />
 

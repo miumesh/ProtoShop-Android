@@ -29,8 +29,7 @@ public class CustomerListFragment extends Fragment implements OnCustomerSelected
     private View mRootView;
     private CustomerListAdapter mAdapter;
 
-    @Bind(R.id.checkout_list_recyclerview)
-    RecyclerView mRecyclerView;
+    @Bind(R.id.customer_list_recyclerview) RecyclerView mRecyclerView;
     @Bind(R.id.empty_text) TextView mEmptyTextView;
     @Bind(R.id.fab) FloatingActionButton mFab;
 
@@ -44,13 +43,12 @@ public class CustomerListFragment extends Fragment implements OnCustomerSelected
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_customer_list, container, false);
-        ButterKnife.bind(this, mRootView);
+        ButterKnife.bind(this,mRootView);
 
         //setup adapter
-
         List<Customer> tempCustomers = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mAdapter = new CustomerListAdapter(tempCustomers, getActivity(), this );
+        mAdapter = new CustomerListAdapter(tempCustomers, getActivity(), this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -81,7 +79,9 @@ public class CustomerListFragment extends Fragment implements OnCustomerSelected
     }
 
     @Override
-    public void onLongClickCusomer(Customer customer) {
+    public void onLongClickCustomer(Customer customer) {
 
     }
+
+
 }
