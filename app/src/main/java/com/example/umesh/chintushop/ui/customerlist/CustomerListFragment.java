@@ -24,10 +24,11 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomerListFragment extends Fragment implements OnCustomerSelectedListener{
+public class CustomerListFragment extends Fragment implements OnCustomerSelectedListener, CustomerListContract.View{
 
     private View mRootView;
     private CustomerListAdapter mAdapter;
+    private CustomerListContract.Actions mPresenter;
 
     @Bind(R.id.customer_list_recyclerview) RecyclerView mRecyclerView;
     @Bind(R.id.empty_text) TextView mEmptyTextView;
@@ -44,6 +45,7 @@ public class CustomerListFragment extends Fragment implements OnCustomerSelected
         // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_customer_list, container, false);
         ButterKnife.bind(this,mRootView);
+        mPresenter = new CustomerPresenter(this);
 
         //setup adapter
         List<Customer> tempCustomers = new ArrayList<>();
@@ -52,16 +54,16 @@ public class CustomerListFragment extends Fragment implements OnCustomerSelected
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-        if(tempCustomers.size() < 1){
-            showEmptyTextMessage();
-        }else {
-            hideEmptyTextMessage();
-        }
+//        if(tempCustomers.size() < 1){
+//            showEmptyTextMessage();
+//        }else {
+//            hideEmptyTextMessage();
+//        }
 
         return mRootView;
     }
 
-    private void hideEmptyTextMessage() {
+    /*private void hideEmptyTextMessage() {
         mRecyclerView.setVisibility(View.VISIBLE);
         mEmptyTextView.setVisibility(View.GONE);
     }
@@ -69,9 +71,13 @@ public class CustomerListFragment extends Fragment implements OnCustomerSelected
     private void showEmptyTextMessage() {
         mRecyclerView.setVisibility(View.GONE);
         mEmptyTextView.setVisibility(View.VISIBLE);
+    }*/
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.loadCustomer();
     }
-
-
 
     @Override
     public void onSelectCustomer(Customer customer) {
@@ -84,4 +90,44 @@ public class CustomerListFragment extends Fragment implements OnCustomerSelected
     }
 
 
+    @Override
+    public void showCustomers(List<Customer> customers) {
+
+        mAdapter.replaceData(customers);
+
+    }
+
+    @Override
+    public void showAddCustomerForm() {
+
+    }
+
+    @Override
+    public void showDeleteCustomerPrompt(Customer customer) {
+
+    }
+
+    @Override
+    public void showEditCustomerForm(Customer customer) {
+
+    }
+
+    @Override
+    public void showEmptyText() {
+        mRecyclerView.setVisibility(View.GONE);
+        mEmptyTextView.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideEmptyText() {
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mEmptyTextView.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void showMessage(String message) {
+
+    }
 }

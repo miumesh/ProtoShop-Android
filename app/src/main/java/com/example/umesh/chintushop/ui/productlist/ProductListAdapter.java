@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.umesh.chintushop.R;
 import com.example.umesh.chintushop.core.listeners.OnProductSelectedListener;
 import com.example.umesh.chintushop.model.Product;
-import com.example.umesh.chintushop.util.Constants;
 import com.example.umesh.chintushop.util.Formatter;
 import com.squareup.picasso.Picasso;
 
@@ -34,6 +33,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         mProducts = products;
         mContext = context;
         mListener = listener;
+
+    }
+    public void replaceData(List<Product> products){
+        mProducts = products;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -52,7 +56,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     .fit()
                     .placeholder(R.drawable.default_image)
                     .into(holder.productImage);
-            holder.productName.setText(product.getPromoMessage());
+            holder.productName.setText(product.getProductName());
             holder.category.setText(product.getCategoryName());
             holder.productPrice.setText(Formatter.formatCurrency(product.getSalePrice()));
             String productDescription = product.getDescription();

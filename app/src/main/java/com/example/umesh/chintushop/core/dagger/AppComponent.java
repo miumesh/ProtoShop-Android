@@ -18,7 +18,8 @@ import dagger.Component;
         modules = {
                 AppModule.class,
                 ShoppingCartModule.class,
-                BusModule.class
+                BusModule.class,
+                PersistenceModule.class
         }
 )
 public interface AppComponent {

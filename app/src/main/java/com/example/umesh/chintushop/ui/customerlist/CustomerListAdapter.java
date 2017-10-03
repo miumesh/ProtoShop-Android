@@ -2,7 +2,6 @@ package com.example.umesh.chintushop.ui.customerlist;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.example.umesh.chintushop.R;
 import com.example.umesh.chintushop.core.listeners.OnCustomerSelectedListener;
 import com.example.umesh.chintushop.model.Customer;
-import com.example.umesh.chintushop.ui.productlist.ProductListAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -81,11 +79,16 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         }
     }
 
+    public void replaceData(List<Customer> customers){
+        mCustomers = customers;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
         @Bind(R.id.image_view_customer_head_shot) ImageView customerHeadShot;
-        @Bind(R.id.text_view_customer_name) TextView customerName;
-        @Bind(R.id.text_view_customer_email) TextView customerEmail;
+        @Bind(R.id.text_view_customers_nam) TextView customerName;
+        @Bind(R.id.text_view_customers_email) TextView customerEmail;
 
         public ViewHolder(View itemView) {
             super(itemView);

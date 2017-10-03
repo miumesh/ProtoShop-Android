@@ -16,8 +16,7 @@ import javax.inject.Inject;
 
 public class TransactionPresenter implements TransactionContract.Actions, OnDatabaseOperationCompleteListener {
     private final TransactionContract.View mView;
-    @Inject
-    TransactionContract.Repository mRepository;
+    @Inject TransactionContract.Repository mRepository;
     @Inject CustomerListContract.Repository mCustomerRepository;
 
     public TransactionPresenter(TransactionContract.View view) {
