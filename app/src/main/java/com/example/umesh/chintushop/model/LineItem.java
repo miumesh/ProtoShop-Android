@@ -11,11 +11,16 @@ public class LineItem extends Product{
         return quantity;
     }
 
+    public LineItem(Product product,int quantity){
+        super(product);
+        this.setQuantity(quantity);
+    }
+
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    private double getSumPrice(){
+    public double getSumPrice(){
 
         return getSalePrice() * quantity;
     }
