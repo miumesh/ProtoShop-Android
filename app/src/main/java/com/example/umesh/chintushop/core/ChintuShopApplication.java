@@ -15,7 +15,9 @@ public class ChintuShopApplication extends Application{
     private static AppComponent appComponent;
     private static ChintuShopApplication instance = new ChintuShopApplication();
 
-
+    public static ChintuShopApplication getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
@@ -23,12 +25,13 @@ public class ChintuShopApplication extends Application{
         getAppComponent();
     }
 
-    private void getAppComponent() {
+    public AppComponent getAppComponent() {
         if (appComponent == null){
             appComponent = DaggerAppComponent.builder()
                     .appModule(new AppModule(this))
                     .build();
         }
+        return appComponent;
 
     }
 

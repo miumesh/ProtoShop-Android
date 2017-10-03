@@ -3,20 +3,27 @@ package com.example.umesh.chintushop.common;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.umesh.chintushop.core.ChintuShopApplication;
+import com.example.umesh.chintushop.core.events.CustomerSelectedEvent;
+import com.example.umesh.chintushop.core.events.UpdateToolbarEvent;
 import com.example.umesh.chintushop.model.Customer;
 import com.example.umesh.chintushop.model.LineItem;
 import com.example.umesh.chintushop.util.Constants;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.otto.Bus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Umesh on 21-09-2017.
  */
 
-public class ShoppingCart implements ShoppingCartContract{
+public class ShoppingCart implements ShoppingCartContract {
+
     private List<LineItem> shoppingCart;
     private Customer selectedCustomer;
     private final SharedPreferences sharedPreferences;
@@ -25,10 +32,14 @@ public class ShoppingCart implements ShoppingCartContract{
     private final static String LOG_TAG = ShoppingCart.class.getSimpleName();
     private static boolean DEBUG = true;
 
+    @Inject Bus mBus;
+
     public ShoppingCart(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
+        ChintuShopApplication.getInstance().getAppComponent().inject(this);
         initShoppingCart();
     }
+
 
     private void initShoppingCart() {
         shoppingCart = new ArrayList<>();
@@ -53,9 +64,8 @@ public class ShoppingCart implements ShoppingCartContract{
             }
         }
         populateToolbar();
-    }
 
-    private void populateToolbar() {
+
     }
 
     public void saveCartToPreference(){
@@ -103,13 +113,22 @@ public class ShoppingCart implements ShoppingCartContract{
     @Override
     public void removeItemFromCart(LineItem item) {
         shoppingCart.remove(item);
-
+        if (shoppingCart.size() == 0){
+            mBus.post(new CustomerSelectedEvent(new Customer(), true));
+        }
+        populateToolbar();
     }
 
     @Override
     public void clearAllItemsFromCart() {
         shoppingCart.clear();
+        selectedCustomer = null;
 
+        editor.putString(Constants.SERIALIZED_CART_ITEMS, "").commit();
+        editor.putString(Constants.SERIALIZED_CART_CUSTOMER, "").commit();
+        editor.putBoolean(Constants.OPEN_CART_EXISTS, false).commit();
+        populateToolbar();
+        mBus.post(new CustomerSelectedEvent(new Customer(), true));
     }
 
     @Override
@@ -120,7 +139,7 @@ public class ShoppingCart implements ShoppingCartContract{
     @Override
     public void setCustomer(Customer customer) {
         selectedCustomer = customer;
-
+        mBus.post(new CustomerSelectedEvent(customer, false));
     }
 
     @Override
@@ -143,8 +162,10 @@ public class ShoppingCart implements ShoppingCartContract{
             shoppingCart.add(item);
         }
         populateToolbar();
+    }
 
-
+    private void populateToolbar(){
+        mBus.post(new UpdateToolbarEvent(shoppingCart));
     }
 
     @Override
@@ -155,6 +176,8 @@ public class ShoppingCart implements ShoppingCartContract{
     @Override
     public void completeCheckout() {
         shoppingCart.clear();
-
+        populateToolbar();
+        mBus.post(new CustomerSelectedEvent(new Customer(), true));
     }
 }
+
