@@ -1,6 +1,7 @@
 package com.example.umesh.chintushop.core.dagger;
 
 import com.example.umesh.chintushop.common.MainActivity;
+import com.example.umesh.chintushop.common.ShoppingCart;
 
 import javax.inject.Singleton;
 
@@ -13,9 +14,11 @@ import dagger.Component;
 @Component(
         modules = {
                 AppModule.class,
-                ShoppingCartModule.class
+                ShoppingCartModule.class,
+                BusModule.class
         }
 )
 public interface AppComponent {
     void inject(MainActivity activity);
+    void inject(ShoppingCart cart);
 }
