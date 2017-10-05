@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         mBus = ChintuShopApplication.getInstance().getBus();
 
-       /* DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        /*DatabaseHelper databaseHelper = new DatabaseHelper(this,"test",null,1);
         SQLiteDatabase database = databaseHelper.getWritableDatabase();*/
 
 
