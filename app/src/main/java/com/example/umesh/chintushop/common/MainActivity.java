@@ -103,13 +103,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Subscribe
     public void onUpdateToolbar(UpdateToolbarEvent event){
-        populateToolbar(event.getLineItems());
+        /*populateToolbar(event.getLineItems());*/
     }
 
     @Subscribe
     public void onCustomerSelected(CustomerSelectedEvent event){
         if (event.isClearCustomer()) {
-            mNameTextView.setText(getString(R.string.hint_customer_name));
+            /*mNameTextView.setText(getString(R.string.hint_customer_name));*/
         } else {
             mNameTextView.setText(event.getSelectedCustomer().getCustomerName());
         }
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         if (listOfItemsInShoppingCart != null && listOfItemsInShoppingCart.size() > 0) {
             for (LineItem item: listOfItemsInShoppingCart){
                 totalAmount += item.getSumPrice();
-                numberOfItems += item.getQauntity();
+                /*numberOfItems += item.getQauntity();*/
             }
             mTotalTextView.setText(Formatter.formatCurrency(totalAmount));
 
