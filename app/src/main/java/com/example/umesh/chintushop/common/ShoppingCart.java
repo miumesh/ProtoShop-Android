@@ -32,7 +32,7 @@ public class ShoppingCart implements ShoppingCartContract {
     private final static String LOG_TAG = ShoppingCart.class.getSimpleName();
     private static boolean DEBUG = true;
 
-    @Inject Bus mBus;
+   /* @Inject Bus mBus;*/
 
     public ShoppingCart(SharedPreferences sharedPreferences) {
         this.sharedPreferences = sharedPreferences;
@@ -114,7 +114,8 @@ public class ShoppingCart implements ShoppingCartContract {
     public void removeItemFromCart(LineItem item) {
         shoppingCart.remove(item);
         if (shoppingCart.size() == 0){
-            mBus.post(new CustomerSelectedEvent(new Customer(), true));
+            ChintuShopApplication.getInstance().getBus()
+                    .post(new CustomerSelectedEvent(new Customer(), true));
         }
         populateToolbar();
     }
@@ -128,7 +129,8 @@ public class ShoppingCart implements ShoppingCartContract {
         editor.putString(Constants.SERIALIZED_CART_CUSTOMER, "").commit();
         editor.putBoolean(Constants.OPEN_CART_EXISTS, false).commit();
         populateToolbar();
-        mBus.post(new CustomerSelectedEvent(new Customer(), true));
+        ChintuShopApplication.getInstance().getBus()
+                .post(new CustomerSelectedEvent(new Customer(), true));
     }
 
     @Override
@@ -139,7 +141,8 @@ public class ShoppingCart implements ShoppingCartContract {
     @Override
     public void setCustomer(Customer customer) {
         selectedCustomer = customer;
-        mBus.post(new CustomerSelectedEvent(customer, false));
+        ChintuShopApplication.getInstance().getBus()
+                .post(new CustomerSelectedEvent(customer, false));
     }
 
     @Override
@@ -165,7 +168,8 @@ public class ShoppingCart implements ShoppingCartContract {
     }
 
     private void populateToolbar(){
-        mBus.post(new UpdateToolbarEvent(shoppingCart));
+        ChintuShopApplication.getInstance().getBus()
+                .post(new UpdateToolbarEvent(shoppingCart));
     }
 
     @Override
@@ -177,7 +181,8 @@ public class ShoppingCart implements ShoppingCartContract {
     public void completeCheckout() {
         shoppingCart.clear();
         populateToolbar();
-        mBus.post(new CustomerSelectedEvent(new Customer(), true));
+        ChintuShopApplication.getInstance().getBus()
+                .post(new CustomerSelectedEvent(new Customer(), true));
     }
 }
 
