@@ -60,7 +60,18 @@ public class ProductListSQLiteManager implements ProductListContract.Repository{
 
     @Override
     public Product getProductById(long id) {
-        return null;
+        //get cursor representing product
+        Cursor cursor = database.rawQuery("SELECT * FROM " +
+                Constants.PRODUCT_TABLE + " WHERE " + Constants.COLUMN_ID + " = '" + id + "'",null);
+        Product product;
+
+        if (cursor.moveToFirst()){
+            product = Product.getProductFromCursor(cursor);
+        }else {
+            product =null;
+        }
+
+        return product;
     }
 
     @Override
