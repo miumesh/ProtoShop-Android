@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Umesh on 23-09-2017.
  */
 
-public class Transaction {
+public class SalesTransaction {
 
     private long id;
     private long customerId;
@@ -26,7 +26,7 @@ public class Transaction {
 
     private String jasonLineItems;
 
-    public Transaction(){}
+    public SalesTransaction(){}
 
 
     public long getId() {

@@ -1,5 +1,6 @@
 package com.example.umesh.chintushop.common;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import com.example.umesh.chintushop.R;
 import com.example.umesh.chintushop.core.ChintuShopApplication;
 import com.example.umesh.chintushop.core.events.CustomerSelectedEvent;
 import com.example.umesh.chintushop.core.events.UpdateToolbarEvent;
+import com.example.umesh.chintushop.data.DatabaseHelper;
 import com.example.umesh.chintushop.model.LineItem;
 import com.example.umesh.chintushop.util.Formatter;
 import com.squareup.otto.Bus;
@@ -47,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         mBus = ChintuShopApplication.getInstance().getBus();
 
-        /*DatabaseHelper databaseHelper = new DatabaseHelper(this,"test",null,1);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();*/
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase database = databaseHelper.getWritableDatabase();
 
 
         //openFragment(new ProductListFragment(), "Product List");

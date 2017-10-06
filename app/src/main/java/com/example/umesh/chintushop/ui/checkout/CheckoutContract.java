@@ -2,7 +2,7 @@ package com.example.umesh.chintushop.ui.checkout;
 
 import com.example.umesh.chintushop.core.listeners.OnDatabaseOperationCompleteListener;
 import com.example.umesh.chintushop.model.LineItem;
-import com.example.umesh.chintushop.model.Transaction;
+import com.example.umesh.chintushop.model.SalesTransaction;
 
 import java.util.List;
 
@@ -52,8 +52,8 @@ public interface CheckoutContract {
     public interface Repository {
         List<LineItem> getAllLineItems();
 
-        void saveTransaction(Transaction transaction, OnDatabaseOperationCompleteListener listener);
+        void saveTransaction(SalesTransaction transaction, OnDatabaseOperationCompleteListener listener);
 
-        void updateTransaction(Transaction transaction, OnDatabaseOperationCompleteListener listener);
+        void updateTransaction(SalesTransaction transaction, OnDatabaseOperationCompleteListener listener);
     }
 }

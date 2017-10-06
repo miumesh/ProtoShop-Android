@@ -2,7 +2,7 @@ package com.example.umesh.chintushop.ui.transaction;
 
 import com.example.umesh.chintushop.core.listeners.OnDatabaseOperationCompleteListener;
 import com.example.umesh.chintushop.model.Customer;
-import com.example.umesh.chintushop.model.Transaction;
+import com.example.umesh.chintushop.model.SalesTransaction;
 
 import java.util.List;
 
@@ -12,13 +12,13 @@ import java.util.List;
 
 public interface TransactionContract {
     public interface View {
-        void showTransaction(List<Transaction> transactions);
+        void showTransaction(List<SalesTransaction> transactions);
 
         void showEmptyText();
 
         void hideEmptyText();
 
-        void showConfirmDeletePrompty(Transaction transaction);
+        void showConfirmDeletePrompty(SalesTransaction transaction);
 
         void showMessage(String message);
 
@@ -27,22 +27,22 @@ public interface TransactionContract {
     public interface Actions {
         void loadTransactions();
 
-        void onDeleteItemButtonClicked(Transaction transaction);
+        void onDeleteItemButtonClicked(SalesTransaction transaction);
 
-        void editTransaction(Transaction transaction);
+        void editTransaction(SalesTransaction transaction);
 
-        void deleteTransaction(Transaction transaction);
+        void deleteTransaction(SalesTransaction transaction);
 
         Customer getCustomerById(long id);
     }
 
 
     public interface Repository {
-        List<Transaction> getAllTransactions();
+        List<SalesTransaction> getAllTransactions();
 
-        void updateTransaction(Transaction transaction, OnDatabaseOperationCompleteListener listener);
+        void updateTransaction(SalesTransaction transaction, OnDatabaseOperationCompleteListener listener);
 
-        Transaction getTransactionById(long id);
+        SalesTransaction getTransactionById(long id);
 
         void deleteTransaction(long id, OnDatabaseOperationCompleteListener listener);
     }

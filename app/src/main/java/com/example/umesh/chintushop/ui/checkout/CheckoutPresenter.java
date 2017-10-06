@@ -3,7 +3,7 @@ package com.example.umesh.chintushop.ui.checkout;
 import com.example.umesh.chintushop.common.ShoppingCart;
 import com.example.umesh.chintushop.core.listeners.OnDatabaseOperationCompleteListener;
 import com.example.umesh.chintushop.model.LineItem;
-import com.example.umesh.chintushop.model.Transaction;
+import com.example.umesh.chintushop.model.SalesTransaction;
 
 import java.util.List;
 
@@ -82,7 +82,7 @@ public class CheckoutPresenter implements CheckoutContract.Actions, OnDatabaseOp
             return;
         }
 
-        Transaction transaction = new Transaction();
+        SalesTransaction transaction = new SalesTransaction();
         transaction.setCustomerId(mCart.getSelectedCustomer().getId());
         transaction.setLineItems(mCart.getShoppingCart());
         transaction.setTaxAmount(tax);

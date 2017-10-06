@@ -1,7 +1,7 @@
 package com.example.umesh.chintushop.ui.transaction;
 
 import com.example.umesh.chintushop.core.listeners.OnDatabaseOperationCompleteListener;
-import com.example.umesh.chintushop.model.Transaction;
+import com.example.umesh.chintushop.model.SalesTransaction;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ public class TempRepository implements TransactionContract.Repository{
 
 
     @Override
-    public List<Transaction> getAllTransactions() {
+    public List<SalesTransaction> getAllTransactions() {
         return null;
     }
 
     @Override
-    public void updateTransaction(Transaction transaction, OnDatabaseOperationCompleteListener listener) {
+    public void updateTransaction(SalesTransaction transaction, OnDatabaseOperationCompleteListener listener) {
 
     }
 
     @Override
-    public Transaction getTransactionById(long id) {
+    public SalesTransaction getTransactionById(long id) {
         return null;
     }
 

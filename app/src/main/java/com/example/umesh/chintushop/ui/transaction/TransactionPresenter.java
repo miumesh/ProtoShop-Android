@@ -3,7 +3,7 @@ package com.example.umesh.chintushop.ui.transaction;
 import com.example.umesh.chintushop.core.ChintuShopApplication;
 import com.example.umesh.chintushop.core.listeners.OnDatabaseOperationCompleteListener;
 import com.example.umesh.chintushop.model.Customer;
-import com.example.umesh.chintushop.model.Transaction;
+import com.example.umesh.chintushop.model.SalesTransaction;
 import com.example.umesh.chintushop.ui.customerlist.CustomerListContract;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class TransactionPresenter implements TransactionContract.Actions, OnData
 
     @Override
     public void loadTransactions() {
-        List<Transaction> transactions = mRepository.getAllTransactions();
+        List<SalesTransaction> transactions = mRepository.getAllTransactions();
         if (transactions != null && transactions.size() > 0){
             mView.hideEmptyText();
             mView.showTransaction(transactions);
@@ -36,17 +36,17 @@ public class TransactionPresenter implements TransactionContract.Actions, OnData
     }
 
     @Override
-    public void onDeleteItemButtonClicked(Transaction transaction) {
+    public void onDeleteItemButtonClicked(SalesTransaction transaction) {
         mView.showConfirmDeletePrompty(transaction);
     }
 
     @Override
-    public void editTransaction(Transaction transaction) {
+    public void editTransaction(SalesTransaction transaction) {
         mRepository.updateTransaction(transaction, this);
     }
 
     @Override
-    public void deleteTransaction(Transaction transaction) {
+    public void deleteTransaction(SalesTransaction transaction) {
         mRepository.deleteTransaction(transaction.getId(), this);
     }
 
