@@ -1,5 +1,9 @@
 package com.example.umesh.chintushop.model;
 
+import android.database.Cursor;
+
+import com.example.umesh.chintushop.util.Constants;
+
 /**
  * Created by Umesh on 21-09-2017.
  */
@@ -35,6 +39,37 @@ public class Product {
         this.dateOfLastTransaction=product.getDateOfLastTransaction();
 
 
+    }
+
+    public static Product getProductFromCursor(Cursor cursor) {
+        long id = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_ID));
+        String name = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_NAME));
+        String description = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_DESCRIPTION));
+        String promoMessage = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_PROMO_MESSAGE));
+        double salePrice = cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_PRICE));
+        double purchasePrice = cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_PURCHASE_PRICE));
+        String imagePath = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_IMAGE_PATH));
+        long catId = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_CATEGORY_ID));
+        String catName = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_CATEGORY_NAME));
+        long dateCreated = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_DATE_CREATED));
+        long dateLastUpdated = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_LAST_UPDATED));
+
+
+        Product product = new Product();
+        product.setId(id);
+        product.setProductName(name);
+        product.setDescription(description);
+        product.setPromoMessage(promoMessage);
+        product.setSalePrice(salePrice);
+        product.setPurchasePrice(purchasePrice);
+        product.setImagePath(imagePath);
+        product.setCategoryId(catId);
+        product.setCategoryName(catName);
+        product.setDateAdded(dateCreated);
+        product.setDateOfLastTransaction(dateLastUpdated);
+
+
+        return product;
     }
 
     public long getId() {
@@ -124,4 +159,6 @@ public class Product {
     public void setDateOfLastTransaction(long dateOfLastTransaction) {
         this.dateOfLastTransaction = dateOfLastTransaction;
     }
+
+
 }
