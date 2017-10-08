@@ -48,15 +48,9 @@ public class ProductListSQLiteManager implements ProductListContract.Repository{
                     //get each product in cursor
                     products.add(Product.getProductFromCursor(cursor));
                     cursor.moveToNext();
-
                 }
             }
-
-
-
         }
-
-
         return products;
     }
 

@@ -1,5 +1,9 @@
 package com.example.umesh.chintushop.model;
 
+import android.database.Cursor;
+
+import com.example.umesh.chintushop.util.Constants;
+
 /**
  * Created by Umesh on 21-09-2017.
  */
@@ -17,8 +21,8 @@ public class Customer {
     private String state;
     private String postalCode;
     private String note;
-    private String dateAdded;
-    private String dateOfLastTransaction;
+    private long dateAdded;
+    private long dateOfLastTransaction;
 
 
     public Customer(){
@@ -35,8 +39,49 @@ public class Customer {
         state = "";
         postalCode = "";
         note = "";
-        dateAdded = "";
-        dateOfLastTransaction = "";
+        dateAdded = 0L;
+        dateOfLastTransaction = 0L;
+
+    }
+
+    public Customer(long customerId, String name, String email, String imagePath, String phone, String street1,
+                    String street2, String customerCity, String customerState, String zip,
+                    String customerNote, long createDate, long modifiedDate){
+        id = customerId;
+        customerName = name;
+        emailAddess = email;
+        profileImagePath = imagePath;
+        phoneNumber = phone;
+        streetAddress = street1;
+        streetAddress2 = street2;
+        city = customerCity;
+        state = customerState;
+        postalCode = zip;
+        note = customerNote;
+        dateAdded = createDate;
+        dateOfLastTransaction = modifiedDate;
+
+    }
+
+    public static Customer getCustomerFromCursor(Cursor cursor) {
+        long id = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_ID));
+        String name = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_NAME));
+        String email = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_EMAIL));
+        String imagePath = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_IMAGE_PATH));
+        String phone = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_PHONE));
+        String street1 = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_STREET1));
+        String street2 = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_STREET2));
+        String city = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_CITY));
+        String state = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_STATE));
+        String zip = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_STREET1));
+        String note = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_NOTE));
+        long createDate = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_DATE_CREATED));
+        long modifiedDate = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_LAST_UPDATED));
+
+        Customer customer = new Customer(id,name,email,imagePath,phone,street1,street2,city,
+                state,zip,note,createDate,modifiedDate);
+        return customer;
+
 
     }
 
@@ -128,19 +173,21 @@ public class Customer {
         this.note = note;
     }
 
-    public String getDateAdded() {
+    public long getDateAdded() {
         return dateAdded;
     }
 
-    public void setDateAdded(String dateAdded) {
+    public void setDateAdded(long dateAdded) {
         this.dateAdded = dateAdded;
     }
 
-    public String getDateOfLastTransaction() {
+    public long getDateOfLastTransaction() {
         return dateOfLastTransaction;
     }
 
-    public void setDateOfLastTransaction(String dateOfLastTransaction) {
+    public void setDateOfLastTransaction(long dateOfLastTransaction) {
         this.dateOfLastTransaction = dateOfLastTransaction;
     }
+
+
 }
