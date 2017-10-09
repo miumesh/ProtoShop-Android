@@ -104,14 +104,34 @@ public class CustomerListSQLiteManager implements CustomerListContract.Repositor
             } catch (SQLException e) {
                 listener.onDatabaseOperationFailed(e.getMessage());
             }
-
-
         }
-
     }
 
     @Override
     public void updatedCustomer(Customer customer, OnDatabaseOperationCompleteListener listener) {
+        if (database != null){
+            ContentValues values = new ContentValues();
+            values.put(Constants.COLUMN_NAME, customer.getCustomerName());
+            values.put(Constants.COLUMN_EMAIL, customer.getEmailAddess());
+            values.put(Constants.COLUMN_PHONE, customer.getPhoneNumber());
+            values.put(Constants.COLUMN_IMAGE_PATH, customer.getProfileImagePath());
+            values.put(Constants.COLUMN_STREET1, customer.getStreetAddress());
+            values.put(Constants.COLUMN_STREET2, customer.getStreetAddress2());
+            values.put(Constants.COLUMN_CITY, customer.getCity());
+            values.put(Constants.COLUMN_STATE, customer.getState());
+            values.put(Constants.COLUMN_ZIP, customer.getPostalCode());
+            values.put(Constants.COLUMN_NOTE, customer.getNote());
+            values.put(Constants.COLUMN_DATE_CREATED, System.currentTimeMillis());
+
+            int result = database.update(Constants.CUSTOMER_TABLE, values,
+                    Constants.COLUMN_ID + " = " + customer.getId(),null);
+            if (result == 1){
+                listener.onDatabaseOperationSucceded("Customer Updated");
+            }else {
+                listener.onDatabaseOperationFailed("Customer update failed");
+            }
+
+        }
 
     }
 }
