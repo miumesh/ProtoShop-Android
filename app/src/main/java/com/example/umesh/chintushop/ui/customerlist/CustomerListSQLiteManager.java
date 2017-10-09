@@ -53,7 +53,16 @@ public class CustomerListSQLiteManager implements CustomerListContract.Repositor
 
     @Override
     public Customer getCustomerById(long id) {
-        return null;
+        //get cursor representing customer
+        Cursor cursor = database.rawQuery("SELECT * FROM" +
+                Constants.CUSTOMER_TABLE + " WHERE " + Constants.COLUMN_ID + " = '" + id + "'",null);
+        Customer customer;
+        if (cursor.moveToFirst()){
+            customer = Customer.getCustomerFromCursor(cursor);
+        }else {
+            customer = null;
+        }
+        return customer;
     }
 
     @Override
