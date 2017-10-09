@@ -1,7 +1,9 @@
 package com.example.umesh.chintushop.ui.customerlist;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.umesh.chintushop.core.listeners.OnDatabaseOperationCompleteListener;
@@ -81,6 +83,30 @@ public class CustomerListSQLiteManager implements CustomerListContract.Repositor
 
     @Override
     public void addCustomer(Customer customer, OnDatabaseOperationCompleteListener listener) {
+        if (database != null){
+            ContentValues values = new ContentValues();
+            values.put(Constants.COLUMN_NAME, customer.getCustomerName());
+            values.put(Constants.COLUMN_EMAIL, customer.getEmailAddess());
+            values.put(Constants.COLUMN_PHONE, customer.getPhoneNumber());
+            values.put(Constants.COLUMN_IMAGE_PATH, customer.getProfileImagePath());
+            values.put(Constants.COLUMN_STREET1, customer.getStreetAddress());
+            values.put(Constants.COLUMN_STREET2, customer.getStreetAddress2());
+            values.put(Constants.COLUMN_CITY, customer.getCity());
+            values.put(Constants.COLUMN_STATE, customer.getState());
+            values.put(Constants.COLUMN_ZIP, customer.getPostalCode());
+            values.put(Constants.COLUMN_NOTE, customer.getNote());
+            values.put(Constants.COLUMN_DATE_CREATED, System.currentTimeMillis());
+            values.put(Constants.COLUMN_LAST_UPDATED, System.currentTimeMillis());
+
+            try {
+                database.insertOrThrow(Constants.CUSTOMER_TABLE, null, values);
+                listener.onDatabaseOperationSucceded("Customer Added");
+            } catch (SQLException e) {
+                listener.onDatabaseOperationFailed(e.getMessage());
+            }
+
+
+        }
 
     }
 
