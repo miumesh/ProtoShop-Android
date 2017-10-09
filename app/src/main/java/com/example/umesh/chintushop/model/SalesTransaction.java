@@ -1,5 +1,8 @@
 package com.example.umesh.chintushop.model;
 
+import android.database.Cursor;
+
+import com.example.umesh.chintushop.util.Constants;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,7 +29,44 @@ public class SalesTransaction {
 
     private String jasonLineItems;
 
-    public SalesTransaction(){}
+    public SalesTransaction() {
+    }
+
+    public SalesTransaction(long _id, long custId, String lineItems,
+                            double subTotal, double tax, double total,
+                            boolean completed, String payment,
+                             long dateOfTransaction, long dateModified){
+        id = _id;
+        customerId = custId;
+        subTotalAmount = subTotal;
+        taxAmount = tax;
+        totalAmount = total;
+        paid = completed;
+        paymentType = payment;
+        transactionDate = dateOfTransaction;
+        modifiedDate = dateModified;
+        jasonLineItems = lineItems;
+
+
+    };
+
+
+    public static SalesTransaction getSalesTransactionFromCursor(Cursor cursor) {
+        long id = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_ID));
+        long customerId = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_CUSTOMER_ID));
+        String lineItems = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_LINE_ITEMS));
+        double subTotal = cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_SUB_TOTAL_AMOUNT));
+        double tax = cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_TOTAL_AMOUNT));
+        double total = cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_TOTAL_AMOUNT));
+        boolean completed = cursor.getDouble(cursor.getColumnIndex(Constants.COLUMN_PAYMENT_STATUS)) > 0;
+        String payment = cursor.getString(cursor.getColumnIndex(Constants.COLUMN_PAYMENT_TYPE));
+        long dateOfTransaction = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_DATE_CREATED));
+        long dateModified = cursor.getLong(cursor.getColumnIndex(Constants.COLUMN_LAST_UPDATED));
+
+        SalesTransaction transaction = new SalesTransaction(id, customerId, lineItems, subTotal, tax, total,
+                completed, payment, dateOfTransaction, dateModified);{};
+        return transaction;
+}
 
 
     public long getId() {

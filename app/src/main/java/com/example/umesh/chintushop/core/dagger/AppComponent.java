@@ -5,6 +5,7 @@ import com.example.umesh.chintushop.common.ShoppingCart;
 import com.example.umesh.chintushop.ui.customerlist.CustomerPresenter;
 import com.example.umesh.chintushop.ui.productlist.ProductPresenter;
 import com.example.umesh.chintushop.ui.transaction.TransactionPresenter;
+import com.example.umesh.chintushop.ui.transaction.TransactionSQLiteManager;
 
 import javax.inject.Singleton;
 
@@ -28,5 +29,6 @@ public interface AppComponent {
     void inject(ProductPresenter presenter);
     void inject(CustomerPresenter presenter);
     void inject(TransactionPresenter presenter);
+    void inject(TransactionSQLiteManager manager);
 
 }
