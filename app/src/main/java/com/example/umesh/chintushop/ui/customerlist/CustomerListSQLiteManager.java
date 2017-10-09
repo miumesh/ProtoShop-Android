@@ -68,6 +68,15 @@ public class CustomerListSQLiteManager implements CustomerListContract.Repositor
     @Override
     public void onDeleteCustomer(Customer customer, OnDatabaseOperationCompleteListener listener) {
 
+        if (database != null){
+            int result = database.delete(Constants.PRODUCT_TABLE,
+                    Constants.COLUMN_ID + " = " + customer.getId(),null);
+            if (result > 0){
+                    listener.onDatabaseOperationSucceded("Product Deleted");
+                }else {
+                listener.onDatabaseOperationFailed("Unable to delete Customer");
+            }
+        }
     }
 
     @Override
