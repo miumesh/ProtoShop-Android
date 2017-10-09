@@ -95,6 +95,7 @@ public class ProductListSQLiteManager implements ProductListContract.Repository{
         values.put(Constants.COLUMN_CATEGORY_NAME,product.getCategoryName());
         values.put(Constants.COLUMN_DATE_CREATED,System.currentTimeMillis());
         values.put(Constants.COLUMN_LAST_UPDATED,System.currentTimeMillis());
+        values.put(Constants.COLUMN_CATEGORY_ID, createOrGetCategoryId(product.getCategoryName(),listener));
 
         try {
             database.insertOrThrow(Constants.RETAILER_TABLE, null,values);
@@ -104,6 +105,42 @@ public class ProductListSQLiteManager implements ProductListContract.Repository{
         }
 
 
+    }
+
+    private long createOrGetCategoryId(String categoryName, OnDatabaseOperationCompleteListener listener) {
+        Category foundCategory = getCategory(categoryName);
+        if (foundCategory == null){
+            foundCategory = addCategory(categoryName, listener);
+        }
+        return foundCategory.getId();
+    }
+
+    private Category addCategory(final String categoryName, OnDatabaseOperationCompleteListener listener) {
+        Category category = new Category();
+        category.setCategoryName(categoryName);
+        saveCategory(category, listener);
+        return category;
+    }
+
+    private void saveCategory(Category category, OnDatabaseOperationCompleteListener listener) {
+        ContentValues values = new ContentValues();
+        values.put(Constants.COLUMN_NAME, category.getCategoryName());
+        try {
+            database.insertOrThrow(Constants.CATEGORY_TABLE, null, values);
+        }catch (SQLException e){
+            listener.onDatabaseOperationFailed("Unable to save Category");
+        }
+    }
+
+
+    private Category getCategory(String categoryName) {
+        Category category = null;
+        Cursor cursor = database.rawQuery("SELECT * FROM " + Constants.CATEGORY_TABLE + " " +
+        "WHERE " + Constants.COLUMN_NAME + " = " + categoryName + "'", null);
+        if (cursor.moveToFirst()){
+            category = Category.fromCursor(cursor);
+        }
+        return category;
     }
 
     @Override
@@ -132,6 +169,21 @@ public class ProductListSQLiteManager implements ProductListContract.Repository{
 
     @Override
     public List<Category> getAllCategories() {
-        return null;
+        List<Category> categories = new ArrayList<>();
+
+        //command to select all categories
+        String selectQuery = "SELECT * FROM " + Constants.CATEGORY_TABLE;
+
+        //get a cursor for all categories in the database
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if (cursor != null){
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()){
+                    categories.add(Category.fromCursor(cursor));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            }
+        return categories;
     }
 }
